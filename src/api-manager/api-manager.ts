@@ -1,10 +1,10 @@
 import type { AxiosInstance, AxiosResponse } from 'axios';
 import axios from 'axios';
 
-import type { GetParams, PostParams } from './types';
+import type { GetParams, NewManagerParams, PostParams } from './types';
 
 import { CacheManager } from '@/cache-manager';
-import { type CacheStrategy, unwrap } from '@/cache-manager/types';
+import { unwrap } from '@/cache-manager/types';
 import { promiseResolver } from '@/promise-resolver';
 import type { Resolver } from '@/promise-resolver/types';
 
@@ -20,11 +20,11 @@ export class ApiManager {
   private protectedInstance?: AxiosInstance;
   private cacheInstance?: CacheManager;
 
-  constructor(
-    cacheStrategy: CacheStrategy,
-    cacheTime: number,
-    protectedInstance?: AxiosInstance,
-  ) {
+  constructor({
+    cacheStrategy,
+    cacheTime,
+    protectedInstance,
+  }: NewManagerParams) {
     this.cacheInstance = new CacheManager(cacheStrategy, cacheTime);
     this.protectedInstance = protectedInstance;
   }
